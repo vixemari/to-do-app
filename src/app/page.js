@@ -1,95 +1,107 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
-import styles from "./page.module.css";
+import FocalPoint from "./public/FocalPoint.png"
+import Modal from "@/components/Modal";
+import styles from './Home.module.scss'
+import { Trash } from "react-feather";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [tarefas, setTarefas] = useState({
+    tarefasAFazer: [],
+    tarefasFeitas: [],
+  })
+  const [openModal, setOpenModal] = useState(false);
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(null);
+  const [modalType, setModalType] = useState(null);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  const DateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const taskDone = (index) => {
+    const newTarefas = [...tarefas.tarefasAFazer]
+    newTarefas.splice(index, 1)
+    setTarefas({...tarefas, tarefasAFazer: newTarefas, tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]]})
+  }
+
+  const handleModal = (index, type) => {
+    setModalType(type);
+    setCurrentTaskIndex(index);
+    setOpenModal(true);
+  }
+
+
+  return (
+    <>
+      {
+        openModal && <Modal
+        props={{
+          open: openModal,
+          setOpen: setOpenModal,
+          tarefas: tarefas,
+          setTarefas: setTarefas,
+          type: modalType,
+          index: currentTaskIndex
+        }} />
+      }
+      <header>
+      <Image
+        src={FocalPoint}
+        alt="logoFocalPoint"
+        width={180}
+        height={50}
+      />
+        <h2 className={styles.headerText}>Bem vindo de volta, Marcus!</h2>
+        <div>
+          {new Date().toLocaleDateString("pt-BR", DateOptions)}
         </div>
-      </main>
+      </header>
+      <section className={styles.container}>
+        <p>Suas tarefas de hoje</p>
+          {
+            tarefas.tarefasAFazer.length > 0 ? ( tarefas.tarefasAFazer.map((tarefa, index) => (
+              <div className={styles.row} key={index}>
+                <div>
+                  <input
+                  type="checkbox"
+                  onClick={() => taskDone(index)}
+                  />
+                  <label>{tarefa}</label>
+                </div>
+                <div>
+                <Trash size={20} color="#b0bbd1"  onClick={() => handleModal(index, "tarefasAFazer")} />
+                </div>
+              </div>
+            ))
+            ) : (
+              <p className={styles.empty}>Você ja concluiu todas tarefas!</p>
+            )
+          }
+        {
+           tarefas.tarefasFeitas.length > 0 && <p >Tarefas finalizadas</p>
+        }
+        {
+         tarefas.tarefasFeitas.map((tarefa, index) => (
+            <div className={styles.row} key={index}>
+              <div>
+                <input type="checkbox" checked />
+                <label className={styles.completed}>{tarefa}</label>
+              </div>
+              <div>
+              <Trash size={20} color="#b0bbd1"  onClick={() => handleModal(index, 'tarefasFeitas')} />
+            </div>
+            </div>
+          ))
+        }
+      </section>
       <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <button onClick={() => handleModal(null, 'tarefasAFazer')} className={styles.buttonPrimary}>Nova Tarefa</button>
       </footer>
-    </div>
+    </>
+
   );
 }

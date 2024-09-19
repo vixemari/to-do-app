@@ -1,0 +1,51 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modalBody {
+  margin-bottom: 15px;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonPrimary {
+  background: linear-gradient(90deg, #0796D3 0%, #53C0F0 68.65%);
+  color: #fff;
+}
+
+.buttonDanger {
+  background: linear-gradient(90deg, #D30707 0%, #F05353 68.65%);
+  color: #fff;
+}
+
+.buttonSecondary {
+  background: #E7EEFB;
+  margin-right: 10px;
+}
