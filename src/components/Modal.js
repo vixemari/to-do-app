@@ -5,6 +5,7 @@ import styles from './modal.module.scss'
 
 export default function Modal({ props }) {
   const { open, setOpen, tarefas, setTarefas, type, index } = props;
+  console.log(props)
 
   const tarefa = useRef(null);
 
@@ -12,7 +13,7 @@ export default function Modal({ props }) {
     const newTarefas = [...tarefas.tarefasAFazer, tarefa.current.value];
     setTarefas({...tarefas, tarefasAFazer: newTarefas});
     setOpen(false);
-    localStorage.setItem('tarefas', JSON.stringify(newTarefas));
+    localStorage.setItem('tarefas', JSON.stringify({...tarefas, tarefasAFazer: newTarefas}));
   };
 
   const removeTask = () => {
@@ -20,7 +21,7 @@ export default function Modal({ props }) {
     newTarefas.splice(index, 1)
     setTarefas({...tarefas, [type]: newTarefas})
     setOpen(false);
-    localStorage.setItem('tarefas', JSON.stringify(newTarefas));
+    localStorage.setItem('tarefas', JSON.stringify({...tarefas, [type]: newTarefas}));
   }
 
 
@@ -38,17 +39,16 @@ export default function Modal({ props }) {
             <input
               type="text"
               ref={tarefa}
-              placeholder="Adicione uma tarefa"
-              className={styles.input}
+              placeholder="Digite"
             />
           ) : null
         }
       </div>
       <div className={styles.modalFooter}>
-        <button onClick={() => setOpen(false)} className={styles.buttonSecondary} >Cancelar</button>
-        <button onClick={() => index ? removeTask() : saveTask()}
-        className={index !== null ? styles.buttonDanger : styles.buttonPrimary}>
-          {index ? 'Deletar' : 'Adicionar'}
+        <button onClick={() => setOpen(false)} className={styles.secondary} >Cancelar</button>
+        <button onClick={() => index !== null ? removeTask() : saveTask()}
+        className={index !== null ? styles.danger : styles.primary}>
+          {index !== null ? 'Deletar' : 'Adicionar'}
           </button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import FocalPoint from "./public/FocalPoint.png"
 import Modal from "@/components/Modal";
@@ -22,10 +22,18 @@ export default function Home() {
     day: 'numeric',
   };
 
+useEffect(() => {
+  const tarefas = localStorage.getItem('tarefas')
+  if (tarefas) {
+    setTarefas(JSON.parse(tarefas))
+  }
+}, [])
+
   const taskDone = (index) => {
     const newTarefas = [...tarefas.tarefasAFazer]
     newTarefas.splice(index, 1)
     setTarefas({...tarefas, tarefasAFazer: newTarefas, tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]]})
+    localStorage.setItem('tarefas', JSON.stringify({...tarefas, tarefasAFazer: newTarefas, tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]]}))
   }
 
   const handleModal = (index, type) => {
