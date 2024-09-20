@@ -31,7 +31,7 @@ export default function Modal({ props }) {
   return (
     <div className={styles.modalOverlay}>
     <div className={styles.modalContent}>
-      <div className={styles.modalHeader}>{index !== null ? 'Deletar Tarefa' : 'Adicionar Tarefa'} </div>
+      <div className={styles.modalHeader}>{index !== null ? 'Deletar Tarefa' : 'Nova Tarefa'} </div>
       <div className={styles.modalBody}>
         <label>{index !== null ? 'Tem certeza que você deseja deletar essa tarefa?' : 'Titulo'}</label>
         {
@@ -45,11 +45,11 @@ export default function Modal({ props }) {
         }
       </div>
       <div className={styles.modalFooter}>
-        <button onClick={() => setOpen(false)} className={styles.secondary} >Cancelar</button>
         <button onClick={() => index !== null ? removeTask() : saveTask()}
         className={index !== null ? styles.danger : styles.primary}>
           {index !== null ? 'Deletar' : 'Adicionar'}
           </button>
+        <button onClick={() => setOpen(false)} className={styles.secondary} >Cancelar</button>
       </div>
     </div>
   </div>

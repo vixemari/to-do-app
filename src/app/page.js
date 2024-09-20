@@ -1,115 +1,44 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import FocalPoint from "./public/FocalPoint.png"
-import Modal from "@/components/Modal";
-import styles from './Home.module.scss'
-import { Trash } from "react-feather";
+import FocalPoint from "./public/FocalPoint.png";
+import styles from "./Inicio.module.scss";
 
-export default function Home() {
-  const [tarefas, setTarefas] = useState({
-    tarefasAFazer: [],
-    tarefasFeitas: [],
-  })
-  const [openModal, setOpenModal] = useState(false);
-  const [currentTaskIndex, setCurrentTaskIndex] = useState(null);
-  const [modalType, setModalType] = useState(null);
+export default function Inicio() {
+  const inputRef = useRef(null);
 
-  const DateOptions = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const handleStart = () => {
+    const name = inputRef.current.value;
+    localStorage.setItem("name", name);
+    if (name) {
+      window.location.href = "/home";
+    } else {
+      alert("Por favor, digite seu nome");
+    }
   };
-
-useEffect(() => {
-  const tarefas = localStorage.getItem('tarefas')
-  if (tarefas) {
-    setTarefas(JSON.parse(tarefas))
-  }
-}, [])
-
-  const taskDone = (index) => {
-    const newTarefas = [...tarefas.tarefasAFazer]
-    newTarefas.splice(index, 1)
-    setTarefas({...tarefas, tarefasAFazer: newTarefas, tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]]})
-    localStorage.setItem('tarefas', JSON.stringify({...tarefas, tarefasAFazer: newTarefas, tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]]}))
-  }
-
-  const handleModal = (index, type) => {
-    setModalType(type);
-    setCurrentTaskIndex(index);
-    setOpenModal(true);
-  }
-
 
   return (
     <>
-      {
-        openModal && <Modal
-        props={{
-          open: openModal,
-          setOpen: setOpenModal,
-          tarefas: tarefas,
-          setTarefas: setTarefas,
-          type: modalType,
-          index: currentTaskIndex
-        }} />
-      }
       <header>
-      <Image
-        src={FocalPoint}
-        alt="logoFocalPoint"
-        width={180}
-        height={50}
-      />
-        <h2 className={styles.headerText}>Bem vindo de volta, Marcus!</h2>
-        <div>
-          {new Date().toLocaleDateString("pt-BR", DateOptions)}
-        </div>
+        <Image
+          src={FocalPoint}
+          alt="logoFocalPoint"
+          width={180}
+          height={50}
+          className={styles.image}
+        />
       </header>
       <section className={styles.container}>
-        <p>Suas tarefas de hoje</p>
-          {
-            tarefas.tarefasAFazer.length > 0 ? ( tarefas.tarefasAFazer.map((tarefa, index) => (
-              <div className={styles.row} key={index}>
-                <div>
-                  <input
-                  type="checkbox"
-                  onClick={() => taskDone(index)}
-                  />
-                  <label>{tarefa}</label>
-                </div>
-                <div>
-                <Trash size={20} color="#b0bbd1"  onClick={() => handleModal(index, "tarefasAFazer")} />
-                </div>
-              </div>
-            ))
-            ) : (
-              <p className={styles.empty}>Você ja concluiu todas tarefas!</p>
-            )
-          }
-        {
-           tarefas.tarefasFeitas.length > 0 && <p >Tarefas finalizadas</p>
-        }
-        {
-         tarefas.tarefasFeitas.map((tarefa, index) => (
-            <div className={styles.row} key={index}>
-              <div>
-                <input type="checkbox" checked />
-                <label className={styles.completed}>{tarefa}</label>
-              </div>
-              <div>
-              <Trash size={20} color="#b0bbd1"  onClick={() => handleModal(index, 'tarefasFeitas')} />
-            </div>
-            </div>
-          ))
-        }
+        <h1 className={styles.title}>Bem vindo ao FocalPoint</h1>
+        <h3 className={styles.subTitle}>
+          Aqui você pode fazer uma lista de tarefas
+        </h3>
+        <label className={styles.label}>Digite seu nome para começar</label>
+        <input type="text" placeholder="digite aqui..." ref={inputRef} />
+        <button onClick={handleStart} className={styles.button}>
+          Iniciar
+        </button>
       </section>
-      <footer className={styles.footer}>
-        <button onClick={() => handleModal(null, 'tarefasAFazer')} className={styles.buttonPrimary}>Nova Tarefa</button>
-      </footer>
     </>
-
   );
 }
