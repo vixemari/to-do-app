@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Claro! Aqui está um exemplo de README em português para o seu repositório:
 
-## Getting Started
+# Projeto To Do App
 
-First, run the development server:
+Este é um projeto Next.js que cria uma lista de tarefas simples.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Começando
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para iniciar o projeto, siga estes passos:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Clone este repositório:
+   ```
+   git clone https://github.com/seu-usuario/seu-projeto.git
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Instale as dependências:
+   ```
+   npm install
+   ```
 
-## Learn More
+3. Inicie o servidor de desenvolvimento:
+   ```
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Abra o navegador e acesse [http://localhost:3000](http://localhost:3000) para ver o resultado.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tecnologias utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js](https://nextjs.org)
+- [React](https://reactjs.org)
+- [Geist](https://vercel.com/font)
 
-## Deploy on Vercel
+## Deploy no Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A maneira mais fácil de implantar o seu aplicativo Next.js é usando a [Plataforma Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+Espero que isso ajude! Se você tiver alguma dúvida adicional, é só perguntar.
