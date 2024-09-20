@@ -63,8 +63,11 @@ export default function Home() {
 
   const encerrarDia = () => {
     setTarefas({ ...tarefas, tarefasAFazer: [], tarefasFeitas: [] });
-    localStorage.removeItem("tarefas");
-    localStorage.removeItem("name");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("tarefas");
+      localStorage.removeItem("name");
+
+    }
     window.location.href = "/";
   };
 
