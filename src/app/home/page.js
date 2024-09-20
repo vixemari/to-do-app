@@ -14,7 +14,7 @@ export default function Home() {
   const [openModal, setOpenModal] = useState(false);
   const [currentTaskIndex, setCurrentTaskIndex] = useState(null);
   const [modalType, setModalType] = useState(null);
-  const name = localStorage.getItem("name");
+  const name = typeof window !== "undefined" && localStorage.getItem("name");
 
   const DateOptions = {
     weekday: "long",
