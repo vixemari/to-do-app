@@ -24,9 +24,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const tarefas = localStorage.getItem("tarefas");
-    if (tarefas) {
-      setTarefas(JSON.parse(tarefas));
+    if (typeof window !== "undefined") {
+      const tarefas = localStorage.getItem("tarefas");
+      if (tarefas) {
+        setTarefas(JSON.parse(tarefas));
+      }
     }
   }, []);
 
@@ -38,14 +40,19 @@ export default function Home() {
       tarefasAFazer: newTarefas,
       tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]],
     });
-    localStorage.setItem(
-      "tarefas",
-      JSON.stringify({
-        ...tarefas,
-        tarefasAFazer: newTarefas,
-        tarefasFeitas: [...tarefas.tarefasFeitas, tarefas.tarefasAFazer[index]],
-      })
-    );
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "tarefas",
+        JSON.stringify({
+          ...tarefas,
+          tarefasAFazer: newTarefas,
+          tarefasFeitas: [
+            ...tarefas.tarefasFeitas,
+            tarefas.tarefasAFazer[index],
+          ],
+        })
+      );
+    }
   };
 
   const handleModal = (index, type) => {

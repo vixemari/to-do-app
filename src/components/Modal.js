@@ -5,7 +5,7 @@ import styles from './modal.module.scss'
 
 export default function Modal({ props }) {
   const { open, setOpen, tarefas, setTarefas, type, index } = props;
-  console.log(props)
+
 
   const tarefa = useRef(null);
 
