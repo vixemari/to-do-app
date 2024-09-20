@@ -10,7 +10,7 @@ Para iniciar o projeto, siga estes passos:
 
 1. Clone este repositório:
    ```
-   git clone https://github.com/seu-usuario/seu-projeto.git
+   git clone https://github.com/vixemari/to-do-app
    ```
 
 2. Instale as dependências:
