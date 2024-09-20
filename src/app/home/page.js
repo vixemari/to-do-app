@@ -66,7 +66,6 @@ export default function Home() {
     if (typeof window !== "undefined") {
       localStorage.removeItem("tarefas");
       localStorage.removeItem("name");
-
     }
     window.location.href = "/";
   };

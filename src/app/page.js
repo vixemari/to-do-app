@@ -9,11 +9,13 @@ export default function Inicio() {
 
   const handleStart = () => {
     const name = inputRef.current.value;
-    localStorage.setItem("name", name);
-    if (name) {
-      window.location.href = "/home";
-    } else {
-      alert("Por favor, digite seu nome");
+    if (typeof window !== "undefined") {
+      localStorage.setItem("name", name);
+      if (name) {
+        window.location.href = "/home";
+      } else {
+        alert("Por favor, digite seu nome");
+      }
     }
   };
 

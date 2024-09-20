@@ -13,7 +13,9 @@ export default function Modal({ props }) {
     const newTarefas = [...tarefas.tarefasAFazer, tarefa.current.value];
     setTarefas({...tarefas, tarefasAFazer: newTarefas});
     setOpen(false);
+    if (typeof window !== 'undefined') {
     localStorage.setItem('tarefas', JSON.stringify({...tarefas, tarefasAFazer: newTarefas}));
+    }
   };
 
   const removeTask = () => {
@@ -21,7 +23,9 @@ export default function Modal({ props }) {
     newTarefas.splice(index, 1)
     setTarefas({...tarefas, [type]: newTarefas})
     setOpen(false);
-    localStorage.setItem('tarefas', JSON.stringify({...tarefas, [type]: newTarefas}));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('tarefas', JSON.stringify({...tarefas, [type]: newTarefas}));
+    }
   }
 
 
